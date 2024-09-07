@@ -131,5 +131,49 @@ int main() {
 	}
 	return 0;
 }
+/////////////////////////////////////////////////////////PROJECT///////////////////////////////////////////////////////////////////////////
+#include <stdio.h>
+#define MAX 100
 
+int main() {
+    int numProducts;
+    int ids[MAX];
+    int stocks[MAX];
+    int sales[MAX];
+    int i, id, totalStock = 0;
+
+    scanf_s("%d", &numProducts);
+
+    if (numProducts < 1 || numProducts > 100) {
+        printf("잘못된 상품 종류 수입니다.\n");
+        return 1;
+    }
+
+ //입고할 수량
+    for (i = 0; i < numProducts; i++) {
+        scanf_s("%d", &stocks[i]); 
+        ids[i] = i + 1;  
+    }
+
+    for (i = 0; i < numProducts; i++) {
+        scanf_s("%d", &sales[i]);
+        stocks[i] -= sales[i]; 
+        if (stocks[i] < 0) 
+            stocks[i] = 0;  
+    }
+
+    scanf_s("%d", &id);
+
+    for (i = 0; i < numProducts; i++) {
+        if (ids[i] == id) {
+            printf("%d\n", stocks[i]);
+        }
+        totalStock += stocks[i];
+    }
+
+    for (i = 0; i < numProducts; i++) {
+        printf("%d ", stocks[i]);
+    }
+    return 0;
+}
 
