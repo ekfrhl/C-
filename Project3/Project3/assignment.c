@@ -131,7 +131,7 @@ int main() {
 	}
 	return 0;
 }
-/////////////////////////////////////////////////////////PROJECT///////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////PROJECT01///////////////////////////////////////////////////////////////////////////
 #include <stdio.h>
 #define MAX 100
 
@@ -174,6 +174,76 @@ int main() {
     for (i = 0; i < numProducts; i++) {
         printf("%d ", stocks[i]);
     }
+    return 0;
+}
+/////////////////////////////////////////////////////////PROJECT02////////////////////////////////////////////////////////////////////////////////////////////
+#include <stdio.h>
+#define MAX 100
+
+int main() {
+    int numProducts;
+    int ids[MAX];        
+    int stocks[MAX];     
+    int sales[MAX];      
+    int totalStock = 0, totalSales = 0;
+    int i;
+    double totalRate = 0.0;
+    int maxSales = -1, minSales = MAX + 1;
+    int maxSalesID = 0, minSalesID = 0;
+
+    
+    scanf_s("%d", &numProducts);
+
+    
+    for (i = 0; i < numProducts; i++) {
+        scanf_s("%d", &stocks[i]);
+        ids[i] = i + 1;  
+        totalStock += stocks[i];  
+    }
+
+
+    for (i = 0; i < numProducts; i++) {
+        scanf_s("%d", &sales[i]);
+        totalSales += sales[i];  
+
+
+        if (sales[i] > maxSales) {
+            maxSales = sales[i];
+            maxSalesID = ids[i];
+        }
+        if (sales[i] < minSales) {
+            minSales = sales[i];
+            minSalesID = ids[i];
+        }
+
+
+        stocks[i] -= sales[i];
+    }
+
+    
+    printf("재고수량:");
+    for (i = 0; i < numProducts; i++) {
+        printf("%d", stocks[i]);
+    }
+    printf("\n");
+
+    
+    totalRate = ((double)totalSales / totalStock) * 100;
+    printf("총 판매량: %d (판매율 %.2f%%)\n", totalSales, totalRate);
+
+    
+    printf("가장 많이 판매된 상품: ID %d, 판매량 %d\n", maxSalesID, maxSales);
+
+    
+    printf("가장 적게 판매된 상품: ID %d, 판매량 %d\n", minSalesID, minSales);
+
+    
+    for (i = 0; i < numProducts; i++) {
+        if (stocks[i] <= 2) {
+            printf("상품 ID %d: 재고부족(%d)\n", ids[i], stocks[i]);
+        }
+    }
+
     return 0;
 }
 
