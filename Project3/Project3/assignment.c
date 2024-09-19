@@ -246,4 +246,58 @@ int main() {
 
     return 0;
 }
+//////////////////////////////////////////////////////////////////////////////////////////09.19
+#include <stdio.h>
+#define max 100
+int main()
+{
+    int call;
+    int call_2;
+    int numProducts=5;
+    int ids[MAX];        
+    int stocks[MAX];     
+    int sales[MAX];      
+    int totalStock = 0, totalSales = 0;
+    int i;
+    double totalRate = 0.0;
+    int maxSales = -1, minSales = MAX + 1;
+    int maxSalesID = 0, minSalesID = 0;
+    
+    
+    
+    
+    while(1){
+    printf("원하는 메뉴를 선택하시오.(1. 입고, 2. 판매, 3.상품현황, 4. 종료)\n");
+    scanf("%d", &call);
+    }
+    if(call==1){
+        printf("입고수량 종류 선택: 1.전체 상품 입고 수량 입력/t 2. 개별 상품 입력 ");
+        scanf("%d",&call_2);
+        if(call_2==1){
+            for(int i=0; i<numProducts; i++)
+            scanf("%d",&stocks[i]);
+        }
+        if else(call_2==2){
+            printf("상품 ID:");
+            scanf("%d",&ids);
+            printf("입고수량:");
+            scanf("%d",&stocks);
+        }
+      if(call==2){
+        printf("판매수량 종류 선택: 1. 전체 상품 판매수량 입력 /t 2. 개별 상품 입력");
+        scanf("%d",&call_2);
+        if(call_2==1){
+            for(int i=0; i<numProducts; i++)
+            scanf("%d",&sales[i]);
+        }
+          if else(call_2==2){
+            printf("상품 ID:");
+            scanf("%d",&ids);
+            printf("입고수량:");
+            scanf("%d",&stocks);
+      }
+      
+    }
+    return 0;
+}
 
