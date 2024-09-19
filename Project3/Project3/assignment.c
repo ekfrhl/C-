@@ -246,6 +246,80 @@ int main() {
 
     return 0;
 }
+/////
+#include <stdio.h>
+
+void test(int* p, char* cp) {
+	printf(" test : p =%p, cp = %p\n", p, cp);
+	printf(" test : *p =%p, *cp = %p\n", *p, *cp);
+	* p = 60;
+	*cp = '$';
+}
+int main(void) {
+
+	int a = 50;
+	char ch = '*';
+	printf("main  : a =%d, ch = %d\n", a, ch);
+	test(&a, &ch);
+	printf("main  : a =%d, ch = %d\n", a, ch);
+	return 0;
+}
+////
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#define SIZE 100
+
+void inputRandomarray(int* array, int size) {
+	for (int i = 0; i < size; i++) {
+		*(array + i) = rand() % 100;
+	}
+}
+
+
+
+int main() {
+	int number[SIZE];
+
+	srand(time(NULL));
+	inputRandomarray(&number[0], SIZE);
+
+	for (int i = 0; i < SIZE; i++) {
+		printf("%3d\t", number[i]);
+		if ((i + 1) % 10 == 0) printf("\n");
+	}
+	return 0;
+}
+//////
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#define SIZE 100
+
+void inputRandomarray(int* array, int size) {
+	for (int i = 0; i < size; i++) {
+		*(array + i) = rand() % 100;
+	}
+}
+void printArray(int* array, int size) {
+
+	for (int i = 0; i < SIZE; i++) {
+		printf("%3d\t", *(array+i));
+		if ((i + 1) % 10 == 0) printf("\n");
+	}
+}
+
+
+
+int main() {
+	int number[SIZE];
+
+	srand(time(NULL));
+	inputRandomarray(&number[0], SIZE);
+
+	
+	return 0;
+}
 //////////////////////////////////////////////////////////////////////////////////////////09.19
 #include <stdio.h>
 #define max 100
