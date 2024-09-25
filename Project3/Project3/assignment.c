@@ -444,7 +444,7 @@ int main() {
     return 0;
 }
 
-///////////////////
+///////////////////4주차 2. 문자열실습1(과제)////////////////////
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 
