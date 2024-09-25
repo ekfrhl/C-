@@ -320,58 +320,167 @@ int main() {
 	
 	return 0;
 }
-//////////////////////////////////////////////////////////////////////////////////////////09.19
+/////////////////////////////////////////PROJECT03/////////////////////////////////////////////////////
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
-#define max 100
-int main()
-{
-    int call;
-    int call_2;
-    int numProducts=5;
-    int ids[MAX];        
-    int stocks[MAX];     
-    int sales[MAX];      
-    int totalStock = 0, totalSales = 0;
-    int i;
-    double totalRate = 0.0;
-    int maxSales = -1, minSales = MAX + 1;
-    int maxSalesID = 0, minSalesID = 0;
-    
-    
-    
-    
-    while(1){
-    printf("원하는 메뉴를 선택하시오.(1. 입고, 2. 판매, 3.상품현황, 4. 종료)\n");
-    scanf("%d", &call);
-    }
-    if(call==1){
-        printf("입고수량 종류 선택: 1.전체 상품 입고 수량 입력/t 2. 개별 상품 입력 ");
-        scanf("%d",&call_2);
-        if(call_2==1){
-            for(int i=0; i<numProducts; i++)
-            scanf("%d",&stocks[i]);
+#define NUM_PRODUCTS 5
+int main() {
+    int stock[NUM_PRODUCTS] = { 0 };  
+    int sales[NUM_PRODUCTS] = { 0 }; 
+    int incoming;  
+    int sell;      
+    int id, total_sales = 0;  
+    int choice;   
+    float sales_rate;
+
+    while (1) {
+        printf("원하는 메뉴를 선택하세요.(1. 입고, 2. 판매, 3. 상품현황, 4. 종료): ");
+        scanf("%d", &choice);
+
+        if (choice == 1) {
+            printf("입고수량 입력: 전체 상품 입고수량 입력 1, 개별 상품 입력 2를 선택: ");
+            int sub_choice;
+            scanf("%d", &sub_choice);
+
+            if (sub_choice == 1) {
+               
+                printf("입고 수량 (5개 상품): ");
+                for (int i = 0; i < NUM_PRODUCTS; i++) {
+                    scanf("%d", &incoming);
+                    stock[i] += incoming;  
+                }
+            }
+            else if (sub_choice == 2) {
+                
+                printf("상품 ID (0~4): ");
+                scanf("%d", &id);
+                printf("입고 수량: ");
+                scanf("%d", &incoming);
+                stock[id] += incoming;  
+            }
+            else {
+                printf("잘못된 선택입니다.\n");
+            }
         }
-        if else(call_2==2){
-            printf("상품 ID:");
-            scanf("%d",&ids);
-            printf("입고수량:");
-            scanf("%d",&stocks);
+        else if (choice == 2) {
+            printf("판매수량 입력: 전체 상품 판매수량 입력 1, 개별 상품 입력 2를 선택: ");
+            int sub_choice;
+            scanf("%d", &sub_choice);
+
+            if (sub_choice == 1) {
+                
+                printf("판매 수량 (5개 상품): ");
+                for (int i = 0; i < NUM_PRODUCTS; i++) {
+                    scanf("%d", &sell);
+                    if (stock[i] >= sell) {
+                        stock[i] -= sell; 
+                        sales[i] += sell;  
+                        total_sales += sell;  
+                    }
+                    else {
+                        printf("상품 ID %d: 재고가 부족합니다.\n", i);
+                    }
+                }
+            }
+            else if (sub_choice == 2) {
+                
+                printf("상품 ID (0~4): ");
+                scanf("%d", &id);
+                printf("판매 수량: ");
+                scanf("%d", &sell);
+                if (stock[id] >= sell) {
+                    stock[id] -= sell;  
+                    sales[id] += sell;  
+                    total_sales += sell;  
+                }
+                else {
+                    printf("재고가 부족합니다.\n");
+                }
+            }
+            else {
+                printf("잘못된 선택입니다.\n");
+            }
         }
-      if(call==2){
-        printf("판매수량 종류 선택: 1. 전체 상품 판매수량 입력 /t 2. 개별 상품 입력");
-        scanf("%d",&call_2);
-        if(call_2==1){
-            for(int i=0; i<numProducts; i++)
-            scanf("%d",&sales[i]);
+        else if (choice == 3) {
+     
+            printf("재고수량: ");
+            for (int i = 0; i < NUM_PRODUCTS; i++) {
+                printf("%d ", stock[i]);
+            }
+            printf("\n총 판매량: %d\n", total_sales);
+            sales_rate = (float)total_sales / (NUM_PRODUCTS * 5) * 100;  
+            printf("판매율: %.2f%%\n", sales_rate);
+
+          
+            int max_sales = 0, min_sales = 10000, max_id = 0, min_id = 0;
+            for (int i = 0; i < NUM_PRODUCTS; i++) {
+                if (sales[i] > max_sales) {
+                    max_sales = sales[i];
+                    max_id = i;
+                }
+                if (sales[i] < min_sales) {
+                    min_sales = sales[i];
+                    min_id = i;
+                }
+            }
+            printf("가장 많이 판매된 상품: ID %d, 판매량 %d\n", max_id, max_sales);
+            printf("가장 적게 판매된 상품: ID %d, 판매량 %d\n", min_id, min_sales);
+
+            
+            for (int i = 0; i < NUM_PRODUCTS; i++) {
+                if (stock[i] <= 2) {
+                    printf("상품 ID %d: 재고부족(%d)\n", i, stock[i]);
+                }
+            }
         }
-          if else(call_2==2){
-            printf("상품 ID:");
-            scanf("%d",&ids);
-            printf("입고수량:");
-            scanf("%d",&stocks);
-      }
-      
+        else if (choice == 4) {
+            printf("프로그램을 종료합니다.\n");
+            break;
+        }
+        else {
+            printf("잘못된 입력입니다.\n");
+        }
     }
     return 0;
 }
+
+///////////////////
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+
+int main(void) {
+
+	char str1[5] = { 'a','b','c','d','\0'};
+	char str2[5] = "abcd";
+	char str3[5];
+
+	printf("%s\n %s\n", str1, str2);
+	scanf("%s", str3);
+	printf("%s", str3);
+	return 0;
+}
+int main() {
+
+	char str1[5] = { 'a','b','c','d','\0' };
+	char str2[5] = "abcd";
+
+	printf("%s\n %s\n", str1, str2);
+
+
+
+	return 0;
+}
+#include <stdio.h>
+
+int main(void) {
+
+	char message[100] = "hello world\n";
+	
+	printf("%s", message); 
+	&message= "hello";
+	printf("%s", message);
+	return 0;
+}
+
+
 
