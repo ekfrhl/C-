@@ -474,11 +474,15 @@ int main() {
 
 int main(void) {
 
-	char message[100] = "hello world\n";
+	//char message[100] = "hello world\n";
+	//20개의 공간에 hello world\n하고 나서 남은 뒷 공간에 자동으로 NULL문자가 들어가짐.
+	//낭비가 되는 것이 싫으면 char message[]="hello world\m"하면 자동으로 사이즈에 맞게 배열의 크기를 만들어줌.
+	//보통 다르게 쓰일 수 있기 때문에 [100]처럼 크기를 더 줘도 됨.
+	//배열의 이름이 쓰이면 배열의  시작주소,,
+	char message2[5] = { 'a','b','c','d','\0' };
+	char message[5] = { 'a','b','c','\0' };
 	
-	printf("%s", message); 
-	&message= "hello";
-	printf("%s", message);
+	printf("message= %s, message2= %s", message,message2);
 	return 0;
 }
 
