@@ -485,6 +485,21 @@ int main(void) {
 	printf("message= %s, message2= %s", message,message2);
 	return 0;
 }
+///////////////////4주차 4. 문자열4(과제)////////////////////
+#include <stdio.h>
+	
+int main() {
+
+	int ch;
+	char message[100];
+	int i = 0;
+	while ((ch = getchar()) != '\n')
+		message[i++] = ch; 
+
+	message[i] = '\0';
+	printf("%s", message);
+	return 0;
+}
 ///////////09/26
 #include <stdio.h>
 #define NUM_PRODUCTS 5
