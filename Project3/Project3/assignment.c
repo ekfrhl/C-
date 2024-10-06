@@ -649,6 +649,48 @@ int main(void) {
 		printf("%c 출현횟수: %d\n", 'a' + i, count[i]);
 	return 0;
 }
+/////////////5주차 2. 문자열 6(과제)//////////////////////
+#include <stdio.h>
+#include <string.h>
+
+int main(void) {
+
+	char src[100];
+	char dest[100];
+	int length;
+	char compare;
+	gets(src);
+	
+	length = strlen(src);
+	printf("src의 길이:%d\n", length);
+
+	strcpy(dest, src);
+	puts(dest);
+
+	compare=strcmp(src, dest);
+	printf("compare:%d\n", compare);
+	
+	strcat(dest, src);
+	printf("src=%s, dest=%s",src, dest);
+	return 0;
+}
+
+#include <stdio.h>
+#include <string.h>
+int main(void) {
+
+	char src[100];
+	char dest[100];
+	int result;
+	gets(src);
+	gets(dest);
+
+	result= strcmp(src, dest);
+
+	printf("result=%d", result);
+
+	return 0;
+}
 
 
 
