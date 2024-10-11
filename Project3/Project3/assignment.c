@@ -888,6 +888,54 @@ int main(void) {
 
 	return 0;
 }
+////////////6주차 3. 구조체3(퀴즈, 과제)//////////////////////
+#include <stdio.h>
+typedef int INT32;
+int main() {
+	int i = 10;
+	INT32 j = 10;
+	printf("%d %d", i, j);
+
+	return 0;
+}
+
+#include <stdio.h>
+#include <math.h>
+//구조체 재정의 버전
+typedef struct point {
+	int x;
+	int y;
+
+}POINT; // 구조체 재정의 (간편화 목적인듯)
+double  distance(POINT p1, POINT p2) {
+
+	double space = sqrt(pow(p2.x - p1.x, 2) + pow(p2.y - p1.y, 2));
+	return space;
+}
+
+int main(void) {
+
+
+	POINT p1 = { 0,0 };
+	POINT p2 = { 0,0 };
+	double result;
+
+	printf("p1의 x, y의 좌표를 입력하시오.:");
+	scanf_s("%d %d", &p1.x, &p1.y);
+
+	printf("p2의 x, y의 좌표를 입력하시오.:");
+	scanf_s("%d %d", &p2.x, &p2.y);
+	
+	printf("\n[입력완료] p1=(%d, %d)\n", p1.x, p1.y);
+	printf("[입력완료] p2=(%d, %d)\n", p2.x, p2.y);
+
+	result=distance(p1, p2); // distance함수에서 반환된 space값이 이 자리에 들어감 double형으로 
+	
+	printf("[p1 p2] 두 점 사이의 거리는 %lf입니다.",result);
+
+	return 0;
+}
+
 
 
 
