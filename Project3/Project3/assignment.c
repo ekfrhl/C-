@@ -935,6 +935,57 @@ int main(void) {
 
 	return 0;
 }
+////////////6주차 4. 구조체4(퀴즈, 과제)//////////////////////
+#include <stdio.h>
+#include <math.h>
+
+typedef struct point{
+	int x;
+	int y;
+} POINT;
+typedef struct circle {
+	POINT center; //원 중심 좌표값(x,y) **구조체 안에 구조체를 사용한 구조**
+	double radius; //원 반지름 좌표값(x,y)
+}CIRCLE;
+typedef struct ractangle {
+	POINT lb;
+	POINT rt;
+}RECT;
+
+
+double dist(POINT p1, POINT p2) {
+	return sqrt(pow(p2.x - p1.x, 2) + pow(p2.y - p1.y,2));
+}
+
+
+int main(void) {
+
+	CIRCLE c1 = { {10,10},4.5};
+	CIRCLE c2;
+	c2.radius = 5.5;
+	c2.center.x = 10;
+	c2.center.y = 20;
+	POINT point = { 10,15 }; //변수 point는 타입재정의POINT에 의해 변수 두개를 가진 변수가 되는거임 구조체를 말그대로 뼈대로 보면 됨.(와플기계 틀)
+							 //와플기계point를 생성하고 그 안에 있는 x자리에 10, y자리에 15를 넣은 거임.
+	double distance;
+	printf("CIRCLE1: center=(%d,%d)\tradius=%.2lf\n", c1.center.x, c1.center.y, c1.radius);
+	printf("CIRCLE2: center=(%d,%d)\tradius=%.2lf\n", c2.center.x, c2.center.y, c2.radius);
+	printf("point=(%d, %d)\n",point.x,point.y);
+	distance = dist(c1.center, point);
+	if (distance > c1.radius) {
+		printf("점이 원(1) 밖에 있습니다.");
+	}
+	else
+		printf("점이 원(1) 안에 있습니다.");
+	printf("\n");
+	if (distance <= c2.radius)
+		printf("점이 원(2) 안에 있습니다.");
+	else
+		printf("점이 원(2) 밖에 있습니다.");
+
+	return 0;
+}
+
 
 
 
