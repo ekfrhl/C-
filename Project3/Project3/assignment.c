@@ -986,6 +986,51 @@ int main(void) {
 	return 0;
 }
 ////////////7주차 1. 구조체 5(퀴즈, 과제)//////////////////////
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#define SIZE 100
+
+typedef struct point {
+	int x;
+	int y;
+}POINT;
+
+int main() {
+
+	POINT point[SIZE] = { 0 };
+	POINT temp = { 0,0 };
+	int least;
+
+	srand(time(NULL));
+	for (int i = 0; i < SIZE; i++) {
+		point[i].x = rand() % 101;
+		point[i].y = rand() % 101;
+	}
+	for (int j = 0; j < SIZE; j++) {
+		printf("point[%3d]:(%3d, %3d)\n", j, point[j].x, point[j].y);
+	}
+	//x값을 기준으로 정렬, x값이 같으면 y값을 정렬(오름차순)
+	for (int i = 0; i < SIZE-1; i++) {
+		least =i;
+		for (int j = i+1; j < SIZE; j++) {
+			if (point[least].x > point[j].x)
+				least = j;
+			else if (point[least].x == point[j].x && point[least].y > point[j].y)
+				least = j;
+		}
+		temp = point[least];
+		point[least] = point[i];
+		point[i] = temp;
+	}
+	printf("after sorting>>>>>>>>>>>>>>>>>>>\n");
+	for (int j = 0; j <SIZE; j++) {
+		printf("point[%3d]:(%3d, %3d)\n", j, point[j].x, point[j].y);
+	}
+
+	return 0;
+}
+
 
 
 
