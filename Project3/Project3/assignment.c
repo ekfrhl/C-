@@ -246,7 +246,7 @@ int main() {
 
     return 0;
 }
-/////
+////////////////////////////////////////////////////////////////////////////////////////////////////
 #include <stdio.h>
 
 void test(int* p, char* cp) {
@@ -264,7 +264,7 @@ int main(void) {
 	printf("main  : a =%d, ch = %d\n", a, ch);
 	return 0;
 }
-////
+////////////3주차 3. 포인터와 배열의 관계(실습)(퀴즈, 과제)//////////////////////
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
