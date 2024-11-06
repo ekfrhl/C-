@@ -1120,7 +1120,121 @@ int main() {
 	print_point_array(point, SIZE);
 	return 0;
 } 
+////////////9주차 소스코드 업로드//////////////////////
+#define _CRT_SECURE_NO_WARNINGS
 
+#include <stdio.h>
+
+int getline(char* line) {
+	
+	int ch;
+	int i = 0;
+	char input[100];
+	while ((ch = getchar()) != '\n')
+		input[i++] = ch;
+	line[i] = '\0';
+	return i;
+}
+
+int main() {
+
+	char input[100];
+	FILE* fp;
+
+	if ((fp = fopen("output.txt", "w")) == NULL){
+		printf("error");
+		return 0;
+	}
+	for (int i = 0; i < 5; i++) {
+		getline(input);
+		fputs(input, fp);
+	}
+	
+	fclose(fp);
+
+	return 0;
+}
+
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <stdio.h>
+
+int getline(char* line) {
+	
+	int ch;
+	int i = 0;
+	char input[100];
+	while ((ch = getchar()) != '\n')
+		input[i++] = ch;
+	line[i] = '\0';
+	return i;
+}
+
+int main() {
+
+	char input[100];
+	FILE* fp_src;
+	FILE* fp_dest;
+
+	if ((fp_src = fopen("output.txt", "r")) == NULL){
+		printf("error");
+		return 0;
+	}
+	if ((fp_dest = fopen("output2.txt", "w")) == NULL) {
+		printf("error");
+		return 0;
+	}
+
+	while (!feof(fp_src)) {
+		fgets(input, 100, fp_src);
+		fputs(input, fp_dest);
+		puts(input);
+	}
+
+	fclose(fp_src);
+	fclose(fp_dest);
+	return 0;
+}
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+
+int getline(char* line) {
+	
+	int ch;
+	int i = 0;
+	char input[100];
+	while ((ch = getchar()) != '\n')
+		input[i++] = ch;
+	line[i] = '\0';
+	return i;
+}
+
+int main() {
+
+	char input[100];
+	int num1, num2;
+	FILE* fp_src;
+	FILE* fp_dest;
+
+	if ((fp_src = fopen("output.txt", "r")) == NULL){
+		printf("error");
+		return 0;
+	}
+	if ((fp_dest = fopen("output3.txt", "w")) == NULL) {
+		printf("error");
+		return 0;
+	}
+
+	while (!feof(fp_src)) {
+		fscanf(fp_src,"%s %d %d\n",input, &num1, &num2);
+		fprintf(fp_dest, "%s %d %d\n",input, num1, num2);
+	}
+
+	fclose(fp_src);
+	fclose(fp_dest);
+	return 0;
+}
 
 
 
