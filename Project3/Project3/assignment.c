@@ -1426,6 +1426,27 @@ int main() {
     return 0;
 }
 
+////////////10주차 소스코드 업로드//////////////////////
+//10주차 7영상까지의 소스코드임.
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#define SIZE 100
+int main() {
+
+	char input[SIZE];
+	FILE* fp = NULL;
+
+	if ((fp = fopen("output.bin", "wb")) == NULL) {
+		printf("error");
+		return 0;
+	}
+	gets(input);
+	fwrite(input,strlen(input), 1, fp);
+
+	fclose(fp);
+	return 0;
+}
+
 
 
 
