@@ -1427,7 +1427,6 @@ int main() {
 }
 
 ////////////10주차 소스코드 업로드//////////////////////
-//10주차 7영상까지의 소스코드임.
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #define SIZE 100
