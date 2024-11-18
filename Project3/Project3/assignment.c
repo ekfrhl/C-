@@ -1600,6 +1600,183 @@ int main() {
 	fclose(fp);
 	return 0;
 }
+////////////11주차 소스코드 업로드//////////////////////
+#include <stdio.h>
+#include <stdlib.h>
+int main(void) {
+	char* pChar;
+	int* pInt;
+	int count;
+
+	scanf_s("%d", &count);
+	pInt = (int*)malloc(count * sizeof(int));
+
+	for (int i = 0; i < count; i++)
+		pInt[i] = rand() % 100;
+
+	for (int i = 0; i < count; i++)
+		printf("%d ", pInt[i]);
+	
+	while (getchar() != '\n');
+	pChar = (char*)pInt;
+	gets(pChar);
+	puts(pChar);
+
+	free(pInt);
+	return 0;
+}
+#include <stdio.h>
+#include <stdlib.h>
+
+int inputMenu(void) {
+	int input;
+	printf("메뉴 입력(1. 구조체 만들기 2.구조체 출력하기 -1. 종료 : ");
+	scanf_s("%d", &input);
+	return input;
+}
+typedef struct point {
+	int x;
+	int y;
+}POINT;
+
+POINT* make_point(void) {
+	POINT* p = (POINT*)malloc(sizeof(POINT));
+	p->x = rand() % 100;
+	p->y = rand() % 100;
+	return p;
+}
+void print_point(POINT* p[],int size) {
+
+	for (int i = 0; i < size; i++) {
+		printf("x:%d, y:%d\n", p[i]->x, p[i]->y);
+	}	
+}
+void free_points(POINT* p[], int size) {
+	for (int i = 0; i < size; i++) {
+		free(p[i]);
+	}
+}
+int main() {
+
+	int menu;
+	int count=0;
+	POINT* points[100];
+	do {
+		menu = inputMenu();
+		if (menu == 1) {
+			points[count]=make_point();
+			count++;
+			printf("만들었습니다.\n");
+		}
+
+		else if (menu == 2) {
+			print_point(points, count);
+		}
+		else if (menu == -1) {
+			free_points(points, count);
+			printf("프로그램을 종료합니다.\n");
+			
+		}
+	
+	} while (menu > 0);
+	
+	return 0;
+}
+#include <stdio.h>
+#include <stdlib.h>
+#define _CRT_SECURE_NO_WARNINGS
+
+int inputMenu(void) {
+	int input;
+	
+	printf("1. 만들기 2. 출려갛기. 3 클리어 4. 파일저장 5. 파일로드 -1. 종료\n");
+	scanf_s("%d", &input);
+	return input;
+}
+typedef struct point {
+	int x;
+	int y;
+}POINT;
+
+POINT* make_point(void) {
+	POINT* p = (POINT*)malloc(sizeof(POINT));
+	p->x = rand() % 100;
+	p->y = rand() % 100;
+	return p;
+}
+void print_point(POINT* p[],int size) {
+
+	for (int i = 0; i < size; i++) {
+		printf("x:%d, y:%d\n", p[i]->x, p[i]->y);
+	}	
+}
+void free_points(POINT* p[], int size) {
+	for (int i = 0; i < size; i++) {
+		free(p[i]);
+	}
+}
+int saveFile(POINT* p[], int count) {
+	FILE* fp;
+	fp = fopen("points.bin", "ab");
+	if (fp == NULL) return 0;
+	for (int i = 0; i < count; i++) 
+		fwrite(p[i], sizeof(POINT), 1, fp);
+	fclose(fp);
+	return 1;
+}
+int loadFile(POINT* p[], int max) {
+	FILE* fp;
+	int fSize, fCount;
+	fp = fopen("points.bin", "rb");
+	if (fp == NULL) return 0;
+	fseek(fp, 0, SEEK_END);
+	fSize=ftell(fp);
+	fCount=fSize / sizeof(POINT);
+	rewind(fp);
+	for (int i = 0; i < fCount; i++) {
+		if (i == max) break;
+		p[i] = (POINT*)malloc(sizeof(POINT));
+		fread(p[i], sizeof(POINT), 1, fp);
+	}
+	fclose(fp);
+	return fCount;
+}
+int main() {
+
+	int menu;
+	int count=0;
+	POINT* points[100];
+	do {
+		menu = inputMenu();
+		switch (menu){
+		case 1:
+			points[count] = make_point();
+			count++;
+			break;
+		case 2:
+			print_point(points, count);
+			break;
+		case 3:
+			system("cls");
+			break;
+		case 4: //file save
+			if (!saveFile(points, count)) {
+				printf("file open error....\n");
+			}
+			else printf("file writing success..\n");
+			break;
+		case 5: //load file
+			count=loadFile(points, 100);
+			break;
+		case -1:
+			free_points(points, count);
+			printf("프로그램을 종료합니다.\n");
+			break;
+		}
+	} while (menu > 0);
+	
+	return 0;
+}
 
 
 
