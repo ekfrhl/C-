@@ -691,7 +691,7 @@ int main(void) {
 
 	return 0;
 }
-///////////////////////////////////////////////////////RPOJEECT05///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////PROJEECT05///////////////////////////////////////////////////////////////////////
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <string.h>
@@ -1235,7 +1235,7 @@ int main() {
 	fclose(fp_dest);
 	return 0;
 }
-///////////////////////////////////////////////////////RPOJEECT06///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////PROJECT06///////////////////////////////////////////////////////////////////////
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <string.h>
@@ -1777,6 +1777,187 @@ int main() {
 	
 	return 0;
 }
+//////////PROJECT07//////////
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_PRODUCTS 5
+
+int main() {
+    typedef struct {
+        int id;
+        char name[50];
+        int price;
+        int stock;
+        int sales;
+        int total_sales;
+    } Product;
+
+    Product products[MAX_PRODUCTS];
+    int product_count = 0;
+    int choice;
+
+    while (1) {
+        printf("원하는 메뉴를 선택하세요.(1. 입고, 2. 판매, 3. 개별현황, 4. 전체현황, 5. 상품정보저장, 6. 상품정보가져오기, 7. 종료): ");
+        scanf("%d", &choice);
+
+        if (choice == 1) {
+            if (product_count >= MAX_PRODUCTS) {
+                printf("상품 갯수를 초과했습니다.\n");
+                continue;
+            }
+
+            int id, stock, price;
+            char name[50];
+
+            printf("상품 ID: ");
+            scanf("%d", &id);
+
+            // 상품 ID가 존재하는지 확인
+            int found = -1;
+            for (int i = 0; i < product_count; i++) {
+                if (products[i].id == id) {
+                    found = i;
+                    break;
+                }
+            }
+
+            if (found == -1) {
+                // 새로운 상품 추가
+                products[product_count].id = id;
+                printf("상품명: ");
+                scanf("%s", products[product_count].name);
+                printf("입고량: ");
+                scanf("%d", &stock);
+                products[product_count].stock = stock;
+                printf("판매가격: ");
+                scanf("%d", &price);
+                products[product_count].price = price;
+                products[product_count].sales = 0;  // 판매량 초기화
+                products[product_count].total_sales = 0;  // 총 판매금액 초기화
+                product_count++;
+            } else {
+                // 기존 상품 업데이트
+                printf("입고량: ");
+                scanf("%d", &stock);
+                products[found].stock += stock;
+                printf("판매가격: ");
+                scanf("%d", &price);
+                products[found].price = price;
+            }
+        } else if (choice == 2) {
+            int id, sell_amount;
+
+            printf("상품 ID: ");
+            scanf("%d", &id);
+
+            // 상품 ID 찾기
+            int found = -1;
+            for (int i = 0; i < product_count; i++) {
+                if (products[i].id == id) {
+                    found = i;
+                    break;
+                }
+            }
+
+            if (found == -1) {
+                printf("해당 상품이 없습니다.\n");
+                continue;
+            }
+
+            printf("판매량: ");
+            scanf("%d", &sell_amount);
+
+            if (products[found].stock >= sell_amount) {
+                products[found].stock -= sell_amount;
+                products[found].sales += sell_amount;
+                products[found].total_sales += sell_amount * products[found].price;
+            } else {
+                printf("재고가 부족합니다.\n");
+            }
+        } else if (choice == 3) {
+            int id;
+
+            printf("상품 ID: ");
+            scanf("%d", &id);
+
+            // 상품 ID 찾기
+            int found = -1;
+            for (int i = 0; i < product_count; i++) {
+                if (products[i].id == id) {
+                    found = i;
+                    break;
+                }
+            }
+
+            if (found == -1) {
+                printf("해당 상품이 없습니다.\n");
+                continue;
+            }
+
+            printf("ID: %d, 이름: %s, 가격: %d, 재고: %d, 판매량: %d, 총 판매금액: %d\n",
+                   products[found].id, products[found].name, products[found].price,
+                   products[found].stock, products[found].sales, products[found].total_sales);
+        } else if (choice == 4) {
+            int total_sales = 0, total_stock = 0;
+            float sales_rate;
+
+            for (int i = 0; i < product_count; i++) {
+                total_sales += products[i].sales;
+                total_stock += products[i].stock;
+                printf("ID: %d, 이름: %s, 가격: %d, 재고: %d, 판매량: %d, 총 판매금액: %d\n",
+                       products[i].id, products[i].name, products[i].price, products[i].stock,
+                       products[i].sales, products[i].total_sales);
+            }
+
+            sales_rate = (total_sales + total_stock) > 0 ? (float) total_sales / (total_sales + total_stock) * 100 : 0;
+            printf("총 판매량: %d, 총 재고량: %d, 판매율: %.2f%%\n", total_sales, total_stock, sales_rate);
+
+            FILE *file = fopen("sales_rate.txt", "w");
+            if (file) {
+                fprintf(file, "판매율: %.2f%%\n", sales_rate);
+                fclose(file);
+            } else {
+                printf("파일 저장에 실패했습니다.\n");
+            }
+        } else if (choice == 5) {
+            // 상품정보 저장
+            FILE *file = fopen("products.dat", "wb");
+            if (file == NULL) {
+                printf("파일 저장에 실패했습니다.\n");
+                continue;
+            }
+
+            fwrite(&product_count, sizeof(int), 1, file);
+            fwrite(products, sizeof(Product), product_count, file);
+            fclose(file);
+
+            printf("상품 정보가 저장되었습니다.\n");
+        } else if (choice == 6) {
+            // 상품정보 가져오기
+            FILE *file = fopen("products.dat", "rb");
+            if (file == NULL) {
+                printf("파일 열기에 실패했습니다.\n");
+                continue;
+            }
+
+            fread(&product_count, sizeof(int), 1, file);
+            fread(products, sizeof(Product), product_count, file);
+            fclose(file);
+
+            printf("상품 정보를 가져왔습니다.\n");
+        } else if (choice == 7) {
+            printf("프로그램을 종료합니다.\n");
+            break;
+        } else {
+            printf("잘못된 입력입니다.\n");
+        }
+    }
+
+    return 0;
+}
+
 
 
 
