@@ -25,6 +25,102 @@ int main() {
 	}
 	return 0;
 }
+/////행렬곱셈레포트제출//////
+#include <time.h>
+#include <stdlib.h>
+#include <stdio.h>
+#define COL 100
+#define ROW 100
+
+void input2Darray(int array[][100], int row, int col) {
+    for (int i = 0; i < row; i++) {
+        for (int j = 0; j < col; j++) {
+            array[i][j] = rand() % 100;
+        }
+    }
+}
+
+void print2Darray(int array[][100], int row, int col) {
+    printf("====================\n");
+    for (int i = 0; i < row; i++) {
+        for (int j = 0; j < col; j++) {
+            printf("[%4d]", array[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+void addmatrix(int s1[][100], int s2[][100], int target[][100], int row, int col) {
+    for (int i = 0; i < row; i++) {
+        for (int j = 0; j < col; j++) {
+            target[i][j] = s1[i][j] + s2[i][j];
+        }
+    }
+}
+
+void submatrix(int s1[][100], int s2[][100], int target[][100], int row, int col) {
+    for (int i = 0; i < row; i++) {
+        for (int j = 0; j < col; j++) {
+            target[i][j] = s1[i][j] - s2[i][j];
+        }
+    }
+}
+
+// multimatrix 함수 정의
+void multimatrix(int s1[][100], int s2[][100], int target[][100], int row1, int col1, int col2) {
+    for (int i = 0; i < row1; i++) {
+        for (int j = 0; j < col2; j++) {
+            target[i][j] = 0; // 결과 행렬 초기화
+            for (int k = 0; k < col1; k++) {
+                target[i][j] += s1[i][k] * s2[k][j];
+            }
+        }
+    }
+}
+
+int main() {
+    int matrix[ROW][COL];
+    int matrix2[ROW][COL];
+    int result[ROW][COL];
+    int row, col;
+    int row2, col2;
+
+    srand(time(NULL));
+
+    // 첫 번째 행렬 입력
+    printf("첫 번째 행렬의 행과 열 입력: ");
+    scanf("%d %d", &row, &col);
+
+    // 두 번째 행렬 입력
+    printf("두 번째 행렬의 행과 열 입력: ");
+    scanf("%d %d", &row2, &col2);
+
+    // 행렬 곱 조건 확인
+    if (col != row2) {
+        printf("행렬 곱셈이 불가능합니다. (첫 번째 행렬의 열 개수 != 두 번째 행렬의 행 개수)\n");
+        return 1;
+    }
+
+    // 행렬 초기화
+    input2Darray(matrix, row, col);
+    input2Darray(matrix2, row2, col2);
+
+    // 행렬 출력
+    printf("첫 번째 행렬:\n");
+    print2Darray(matrix, row, col);
+
+    printf("두 번째 행렬:\n");
+    print2Darray(matrix2, row2, col2);
+
+    // 행렬 곱 수행
+    multimatrix(matrix, matrix2, result, row, col, col2);
+
+    // 결과 출력
+    printf("행렬 곱 결과:\n");
+    print2Darray(result, row, col2);
+
+    return 0;
+}
 
 
 int main() {
