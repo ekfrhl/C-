@@ -2053,6 +2053,130 @@ int main() {
 
     return 0;
 }
+/////마지막프로젝트//
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#define WORD 16
+
+
+void get_binary(char bin[], char str[], int n) {
+    int len = strlen(str);
+    int start = n - len;
+
+    for (int i = 0; i < n; i++) {
+        if (i < start) {
+            bin[i] = '0'; 
+        }
+        else {
+            bin[i] = str[i - start]; 
+        }
+    }
+    bin[n] = '\0'; 
+}
+
+
+void complement(char bin[], int n) {
+    int i;
+    int flip = 0;
+
+    
+    for (i = 0; i < n; i++) {
+        bin[i] = (bin[i] == '0') ? '1' : '0';
+    }
+
+   
+    for (i = n - 1; i >= 0; i--) {
+        if (bin[i] == '1' && flip == 0) {
+            bin[i] = '0';
+        }
+        else if (bin[i] == '0' && flip == 0) {
+            bin[i] = '1';
+            flip = 1;
+            break;
+        }
+    }
+
+    if (flip == 0) {
+       
+        bin[0] = '1';
+    }
+}
+
+
+int bin2dec(char bin[], int n) {
+    int result = 0;
+    int is_negative = (bin[0] == '1'); 
+
+    if (is_negative) {
+        complement(bin, n); 
+    }
+
+    for (int i = 0; i < n; i++) {
+        if (bin[i] == '1') {
+            result += (1 << (n - i - 1)); 
+        }
+    }
+
+    if (is_negative) {
+        result = -result; 
+    }
+
+    return result;
+}
+
+int main() {
+    char input1[100];
+    char input2[100];
+    char op[10];
+
+    char binary1[WORD + 1] = { 0 };
+    char binary2[WORD + 1] = { 0 };
+
+    int result;
+    int num1, num2;
+
+    printf("<<<<<<input>>>>>>\n");
+
+    gets(input1);
+    gets(op);
+    gets(input2);
+
+    get_binary(binary1, input1, WORD);
+    get_binary(binary2, input2, WORD);
+
+    num1 = bin2dec(binary1, WORD);
+    num2 = bin2dec(binary2, WORD);
+
+    switch (op[0]) {
+    case '+': result = num1 + num2;
+        break;
+    case '-': result = num1 - num2;
+        break;
+    case '*': result = num1 * num2;
+        break;
+    case '/':
+        if (num2 == 0) {
+            printf("Error: Division by zero\n");
+            return 1;
+        }
+        result = num1 / num2;
+        break;
+    case '%':
+        if (num2 == 0) {
+            printf("Error: Division by zero\n");
+            return 1;
+        }
+        result = num1 % num2;
+        break;
+    default:
+        printf("bad operator..\n");
+        return 1;
+    }
+
+    printf("%s(%d) %c  %s(%d) = %d\n", binary1, num1, op[0], binary2, num2, result);
+    return 0;
+}
 
 
 
